@@ -17,11 +17,14 @@ import java.time.*;
 import java.util.TimeZone;
 import java.util.Calendar;
 
+import static helper.QueryMySQL.query;
+import static helper.QueryMySQL.queryUpdate;
+
 public class CustomerDaoMySQL implements CustomerDao {
     @Override
     public ObservableList<Customer> getAllCustomers() {
         try {
-            ResultSet results = QueryMySQL.query("select * from customers;");
+            ResultSet results = query("select * from customers;");
             ObservableList<Customer> customers = FXCollections.observableArrayList();
             while (results.next()) {
                 Customer current_customer = new Customer();
@@ -58,7 +61,7 @@ public class CustomerDaoMySQL implements CustomerDao {
     @Override
     public Customer getCustomerByID(int id) {
         try {
-            ResultSet results = QueryMySQL.query("select * from customers where Customer_ID=" + id + ";");
+            ResultSet results = query("select * from customers where Customer_ID=" + id + ";");
             results.next();
             return new Customer(results.getInt(1),
                     results.getString(2),
@@ -75,5 +78,38 @@ public class CustomerDaoMySQL implements CustomerDao {
             System.out.println(e);
             return null;
         }
+    }
+
+    @Override
+    public void insertCustomer(Customer customer) {
+        try {
+            queryUpdate("insert into customers " +
+                    "(Customer_name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID)" +
+                    " values (\"" +
+                    customer.getCustomer_name() +
+                    "\", \"" +
+                    customer.getAddress() +
+                    "\", \"" +
+                    customer.getPostal_code() +
+                    "\", \"" +
+                    customer.getPhone() +
+                    "\", now(), \"" +
+                    customer.getCreated_by() +
+                    "\", now(), \"" +
+                    customer.getLast_updated_by() +
+                    "\", " +
+                    customer.getDivision().getDivision_id() +
+                    ");");
+
+
+        } catch (Exception e) {
+            System.out.println("--Insert customer failed!--");
+            System.out.println(e);
+        }
+    }
+
+    @Override
+    public void deleteCustomer(int customer_id) {
+        queryUpdate("delete from customers where customer_id=" + customer_id + ";");
     }
 }

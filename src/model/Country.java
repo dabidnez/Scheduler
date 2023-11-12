@@ -1,5 +1,7 @@
 package model;
 
+import javafx.collections.ObservableList;
+
 import java.time.ZonedDateTime;
 
 public class Country {

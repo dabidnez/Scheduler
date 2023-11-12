@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -94,24 +95,26 @@
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                            </columnConstraints>
                            <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Button mnemonicParsing="false" onAction="#onClickCreateButton" prefHeight="42.0" prefWidth="409.0" text="C R E A T E">
+                              <Button mnemonicParsing="false" onAction="#onClickCreateCustomerButton" prefHeight="29.0" prefWidth="409.0" text="C R E A T E" GridPane.rowIndex="1">
                                  <GridPane.margin>
-                                    <Insets top="2.0" />
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                  </GridPane.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#onClickUpdateButton" prefHeight="41.0" prefWidth="425.0" text="U P D A T E" GridPane.columnIndex="2">
+                              <Button mnemonicParsing="false" onAction="#onClickUpdateButton" prefHeight="35.0" prefWidth="418.0" text="U P D A T E" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <GridPane.margin>
-                                    <Insets top="2.0" />
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                  </GridPane.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#onClickDeleteButton" prefHeight="41.0" prefWidth="411.0" text="D E L E T E" GridPane.columnIndex="1">
+                              <Button fx:id="DeleteCustomerButton" mnemonicParsing="false" onAction="#onClickDeleteButton" prefHeight="31.0" prefWidth="411.0" text="D E L E T E" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <GridPane.margin>
-                                    <Insets top="2.0" />
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                  </GridPane.margin>
                               </Button>
+                              <Label fx:id="welcomeTxt" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
                         <TableView fx:id="customersTable" minWidth="1256.0" prefHeight="621.0" prefWidth="1256.0">

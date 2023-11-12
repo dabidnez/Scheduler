@@ -59,8 +59,15 @@ public class LoginViewController {
         if (user == null) {
             ErrorText.setText(rb.getString("error.incorrect.username"));
         } else if (user.getPassword().equals(input_password)) {
-            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/main-view.fxml")));
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/main-view.fxml"));
+            loader.load();
+
+            MainViewController mainViewController = loader.getController();
+            mainViewController.sendUsername(input_username);
+            scene = loader.getRoot();
+
+            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(scene));
             stage.show();
         } else {

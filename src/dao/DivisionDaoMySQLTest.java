@@ -9,4 +9,9 @@ public class DivisionDaoMySQLTest {
         DivisionDao dao = new DivisionDaoMySQL();
         assertEquals(dao.getFirstLevelDivisionByID(1).getDivison(), "Alabama");
     }
+    @Test
+    void getAllDivisions() {
+        DivisionDao dao = new DivisionDaoMySQL();
+        assertEquals(dao.getAllDivisions().get(0).getDivison(), "Alabama");
+    }
 }

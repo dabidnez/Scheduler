@@ -8,11 +8,15 @@ import model.Appointment;
 
 import java.sql.ResultSet;
 
+
+import static helper.QueryMySQL.query;
+import static helper.QueryMySQL.queryUpdate;
+
 public class AppointmentDaoMySQL implements AppointmentDao {
     @Override
     public ObservableList<Appointment> getAllAppointments() {
         try {
-            ResultSet results = QueryMySQL.query("select * from appointments;");
+            ResultSet results = query("select * from appointments;");
 
             ObservableList<Appointment> appointments = FXCollections.observableArrayList();
             while (results.next()) {
@@ -36,5 +40,11 @@ public class AppointmentDaoMySQL implements AppointmentDao {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    public void deleteAssociatedAppointments(int customer_id) {
+        //vulnerable to sql injection
+        queryUpdate("delete from appointments where customer_id=" + customer_id + ";");
     }
 }

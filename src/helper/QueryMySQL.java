@@ -22,4 +22,15 @@ public class QueryMySQL {
         }
         return results;
     }
+
+    public static int queryUpdate(String query) {
+        try {
+            JDBC.makeConnection();
+            JDBC.makePreparedStatement(query, JDBC.getConnection());
+            return JDBC.getPreparedStatement().executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+            return -1;
+        }
+    }
 }

@@ -8,15 +8,23 @@ import dao.CustomerDaoMySQL;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import model.Appointment;
 import model.Customer;
 
+import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class MainViewController {
     @FXML
@@ -95,13 +103,48 @@ public class MainViewController {
     private TableColumn<Customer, String> customerPostalCodeCollumn;
 
     @FXML
-    void onClickCreateButton(ActionEvent event) {
+    private Label welcomeTxt;
 
+    @FXML
+    private Button DeleteCustomerButton;
+
+    private String username;
+
+    void sendUsername(String username) {
+        this.username = username;
+    }
+
+    @FXML
+    void onClickCreateCustomerButton(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/add-customer-view.fxml"));
+        loader.load();
+
+        CreateViewController createViewController = loader.getController();
+        createViewController.sendUsername(username);
+        Parent scene = loader.getRoot();
+
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     @FXML
     void onClickDeleteButton(ActionEvent event) {
-
+        CustomerDao customerDao = new CustomerDaoMySQL();
+        if (DeleteCustomerButton.getText().equals("D E L E T E")) {
+            DeleteCustomerButton.setText("Confirm? This will delete all associated appoointments.");
+            return;
+        }
+        try {
+            Customer selectedCustomer = customersTable.getSelectionModel().getSelectedItem();
+            new AppointmentDaoMySQL().deleteAssociatedAppointments(selectedCustomer.getCustomer_id());
+            customerDao.deleteCustomer(selectedCustomer.getCustomer_id());
+        } catch (NullPointerException e) {
+            System.out.println(e);
+        }
+        DeleteCustomerButton.setText("D E L E T E");
+        customersTable.setItems(customerDao.getAllCustomers());
     }
 
     @FXML
@@ -112,7 +155,6 @@ public class MainViewController {
 
     @FXML
     public void initialize() {
-        System.out.println("here");
         CustomerDao customerDao = new CustomerDaoMySQL();
         AppointmentDao appointmentDao = new AppointmentDaoMySQL();
         customerIDCollumn.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("customer_id"));
