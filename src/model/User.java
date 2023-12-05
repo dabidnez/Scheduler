@@ -2,6 +2,9 @@ package model;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Represents a user.
+ */
 public class User {
     private int user_id;
     private String user_name;

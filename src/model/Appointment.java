@@ -2,21 +2,26 @@ package model;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Represents an appointment.
+ */
 public class Appointment {
-    private int appointment_id;
-    private String title;
     private String description;
     private String location;
     private String type;
     private ZonedDateTime start;
     private ZonedDateTime end;
+    private ZonedDateTime create_date;
+    private String created_by;
     private ZonedDateTime last_update;
     private String last_updated_by;
-    private Customer customer;
-    private User user;
-    private Contact contact;
+    private int customer_id;
+    private int user_id;
+    private int contact_id;
+    private int appointment_id;
+    private String title;
 
-    public Appointment(int appointment_id, String title, String description, String location, String type, ZonedDateTime start, ZonedDateTime end, ZonedDateTime last_update, String last_updated_by, Customer customer, User user, Contact contact) {
+    public Appointment(int appointment_id, String title, String description, String location, String type, ZonedDateTime start, ZonedDateTime end, ZonedDateTime create_date, String created_by, ZonedDateTime last_update, String last_updated_by, int customer_id, int user_id, int contact_id) {
         this.appointment_id = appointment_id;
         this.title = title;
         this.description = description;
@@ -24,14 +29,14 @@ public class Appointment {
         this.type = type;
         this.start = start;
         this.end = end;
+        this.create_date = create_date;
+        this.created_by = created_by;
         this.last_update = last_update;
         this.last_updated_by = last_updated_by;
-        this.customer = customer;
-        this.user = user;
-        this.contact = contact;
+        this.customer_id = customer_id;
+        this.user_id = user_id;
+        this.contact_id = contact_id;
     }
-
-    public Appointment() {}
 
     public int getAppointment_id() {
         return appointment_id;
@@ -89,6 +94,22 @@ public class Appointment {
         this.end = end;
     }
 
+    public ZonedDateTime getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(ZonedDateTime create_date) {
+        this.create_date = create_date;
+    }
+
+    public String getCreated_by() {
+        return created_by;
+    }
+
+    public void setCreated_by(String created_by) {
+        this.created_by = created_by;
+    }
+
     public ZonedDateTime getLast_update() {
         return last_update;
     }
@@ -105,27 +126,27 @@ public class Appointment {
         this.last_updated_by = last_updated_by;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public int getCustomer_id() {
+        return customer_id;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer_id(int customer_id) {
+        this.customer_id = customer_id;
     }
 
-    public User getUser() {
-        return user;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
-    public Contact getContact() {
-        return contact;
+    public int getContact_id() {
+        return contact_id;
     }
 
-    public void setContact(Contact contact) {
-        this.contact = contact;
+    public void setContact_id(int contact_id) {
+        this.contact_id = contact_id;
     }
 }

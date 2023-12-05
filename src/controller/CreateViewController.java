@@ -24,14 +24,15 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Handles view of creating a customer.
+ */
 public class CreateViewController {
     private ObservableList<Country> countries;
     private ObservableList<FirstLevelDivision> divisions;
 
     @FXML
     private ComboBox<String> CountryDropDown;
-
-
 
     @FXML
     private ComboBox<String> DivisionDropDown;
@@ -71,10 +72,34 @@ public class CreateViewController {
 
     private String username;
 
+    private boolean update;
+
+    /**
+     * Handles transfer of username data from main view to this (create customer) view.
+     * @param username
+     */
     void sendUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Handles transfer of customer data and filling out the create form in the event of an update form.
+     * @param customer
+     */
+    void sendUpdateInfo(Customer customer) {
+        update = true;
+        IdTxt.setText(Integer.toString(customer.getCustomer_id()));
+        NameTxt.setText(customer.getCustomer_name());
+        AddressTxt.setText(customer.getAddress());
+        CountryDropDown.setValue(customer.getDivision().getCountry().getCountry());
+        DivisionDropDown.setValue(customer.getDivision().getDivison());
+        PostalTxt.setText(customer.getPostal_code());
+        PhoneTxt.setText(customer.getPhone());
+    }
+
+    /**
+     * Resets error message before another round of input validation.
+     */
     private void resetErrors() {
         nameErrorTxt.setText("");
         addressErrorTxt.setText("");
@@ -84,6 +109,11 @@ public class CreateViewController {
         phoneErrorTxt.setText("");
     }
 
+    /**
+     * Transforms list of Country objects to a list of their names in String form.
+     * @param countries
+     * @return countryNames
+     */
     private ObservableList<String> getCountryNames(ObservableList<Country> countries) {
         ObservableList<String> countryNames = FXCollections.observableArrayList();
         for (Country country: countries) {
@@ -92,6 +122,11 @@ public class CreateViewController {
         return countryNames;
     }
 
+    /**
+     * Transforms list of Division objects into a list of their names in String form.
+     * @param divisions
+     * @return divisionNames
+     */
     private ObservableList<String> getDivisionNames(ObservableList<FirstLevelDivision> divisions) {
         ObservableList<String> divisionNames = FXCollections.observableArrayList();
         for (FirstLevelDivision division: divisions) {
@@ -100,6 +135,12 @@ public class CreateViewController {
         return divisionNames;
     }
 
+    /**
+     * Transforms list of Division objects to a list of their names in String form.
+     * Used lambda function for readability since it is transforming a list.
+     * @param country_name
+     * @return
+     */
     private ObservableList<String> getDivisionNamesByCountryName(String country_name) {
         ObservableList<String> divisionNames = FXCollections.observableArrayList();
         divisions.forEach(division -> {
@@ -109,6 +150,11 @@ public class CreateViewController {
         return divisionNames;
     }
 
+    /**
+     * Return a division object by its name.
+     * @param division_name
+     * @return
+     */
     private FirstLevelDivision getDivisionByName(String division_name) {
         for(FirstLevelDivision division: divisions) {
             if (division.getDivison().equals(division_name)) {
@@ -118,7 +164,11 @@ public class CreateViewController {
         return null;
     }
 
-
+    /**
+     * Handles cancel button, returns window to main view.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onClickCancelButton(ActionEvent event) throws IOException {
         Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -127,6 +177,10 @@ public class CreateViewController {
         stage.show();
     }
 
+    /**
+     * Handles changing list of divisions depending on the country selected.
+     * @param event
+     */
     @FXML
     void onSelectCountry(ActionEvent event) {
         //set division items to type of country selected
@@ -134,6 +188,12 @@ public class CreateViewController {
         DivisionDropDown.setItems(getDivisionNamesByCountryName(CountryDropDown.getValue()));
     }
 
+    /**
+     * Handles add button. First, it goes through input validation and sets error message depending on whether the input is valid.
+     * If all input is valid, either create a new customer or update an existing one if it is in update mode.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onClickAddButton(ActionEvent event) throws IOException {
         resetErrors();
@@ -176,24 +236,38 @@ public class CreateViewController {
         }
 
         if (!error) {
-            Customer new_customer = new Customer(1,
-                    NameTxt.getText(),
-                    AddressTxt.getText(),
-                    PostalTxt.getText(),
-                    PhoneTxt.getText(),
-                    ZonedDateTime.now(),
-                    username,
-                    ZonedDateTime.now(),
-                    username,
-                    getDivisionByName(DivisionDropDown.getValue()));
-            CustomerDao dao = new CustomerDaoMySQL();
-            dao.insertCustomer(new_customer);
+            if (update) {
+                CustomerDao dao = new CustomerDaoMySQL();
+                dao.updateCustomer(Integer.parseInt(IdTxt.getText()),
+                        NameTxt.getText(),
+                        AddressTxt.getText(),
+                        PostalTxt.getText(),
+                        PhoneTxt.getText(),
+                        username, //update user
+                        getDivisionByName(DivisionDropDown.getValue()).getDivision_id());
+            } else {
+                Customer new_customer = new Customer(1,
+                        NameTxt.getText(),
+                        AddressTxt.getText(),
+                        PostalTxt.getText(),
+                        PhoneTxt.getText(),
+                        ZonedDateTime.now(),
+                        username,
+                        ZonedDateTime.now(),
+                        username,
+                        getDivisionByName(DivisionDropDown.getValue()));
+                CustomerDao dao = new CustomerDaoMySQL();
+                dao.insertCustomer(new_customer);
+            }
             onClickCancelButton(event);
         } else {
             System.out.println("Input Invalid!");
         }
     }
 
+    /**
+     * Initializes the dropdowns for country and first level divisions.
+     */
     @FXML
     void initialize() {
         System.out.println("arrived at createviewcontroller initialize");

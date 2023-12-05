@@ -4,6 +4,9 @@ import javafx.collections.ObservableList;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Represents a country.
+ */
 public class Country {
     private int country_id;
     private String country;

@@ -1,0 +1,10 @@
+-- Login Attempt Failed at DateTime: 2023-12-04T04:08:16.989228200+03:00[Europe/Istanbul] --
+-- Login Attempt Failed at DateTime: 2023-12-04T04:08:17.648101900+03:00[Europe/Istanbul] --
+-- Login Attempt Failed at DateTime: 2023-12-04T04:08:18.482356+03:00[Europe/Istanbul] --
+-- Login Attempt Succeeded at DateTime: 2023-12-04T04:08:29.469587800+03:00[Europe/Istanbul] --
+-- Login Attempt Succeeded at DateTime: 2023-12-04T04:42:30.292904200+03:00[Europe/Istanbul] --
+-- Login Attempt Succeeded at DateTime: 2023-12-04T04:43:13.587648500+03:00[Europe/Istanbul] --
+-- Login Attempt Succeeded at DateTime: 2023-12-04T04:43:45.200553600+03:00[Europe/Istanbul] --
+-- Login Attempt Succeeded at DateTime: 2023-12-04T04:45:11.240048400+03:00[Europe/Istanbul] --
+-- Login Attempt Succeeded at DateTime: 2023-12-05T03:21:59.076779300+03:00[Europe/Istanbul] --
+-- Login Attempt Succeeded at DateTime: 2023-12-05T03:50:55.979236500+03:00[Europe/Istanbul] --

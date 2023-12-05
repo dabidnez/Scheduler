@@ -2,6 +2,9 @@ package model;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Represents a customer who has appointments.
+ */
 public class Customer {
     private int customer_id;
     private String customer_name;

@@ -2,6 +2,9 @@ package model;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Represents a first level division. Object is associated with a country.
+ */
 public class FirstLevelDivision {
     private int division_id;
     private String divison;

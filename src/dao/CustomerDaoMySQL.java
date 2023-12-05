@@ -112,4 +112,16 @@ public class CustomerDaoMySQL implements CustomerDao {
     public void deleteCustomer(int customer_id) {
         queryUpdate("delete from customers where customer_id=" + customer_id + ";");
     }
+
+    @Override
+    public void updateCustomer(int customer_id, String name, String address, String postal, String phone, String update_user, int division_id) {
+        System.out.println("Sent update user: " + update_user);
+        queryUpdate("update customers set customer_name='" +
+                name +
+                "', address='" + address +
+                "', postal_code='" + postal +
+                "', phone='" + phone +
+                "', last_update=now(), last_updated_by='" + update_user +
+                "', division_id=" + Integer.toString(division_id) + " where customer_id=" + customer_id + ";");
+    }
 }
