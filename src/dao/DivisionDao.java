@@ -3,6 +3,9 @@ package dao;
 import javafx.collections.ObservableList;
 import model.FirstLevelDivision;
 
+/**
+ * Division object related queries.
+ */
 public interface DivisionDao {
     /**
      * Get first level division object by its id.

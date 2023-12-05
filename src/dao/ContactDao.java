@@ -3,6 +3,9 @@ package dao;
 import javafx.collections.ObservableList;
 import model.Contact;
 
+/**
+ * Contact object related queries.
+ */
 public interface ContactDao {
     /**
      * Return a contact object given its id.

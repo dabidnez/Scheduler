@@ -3,6 +3,9 @@ package dao;
 import javafx.collections.ObservableList;
 import model.User;
 
+/**
+ * User object related queries.
+ */
 public interface UserDao {
     /**
      * Return a user object based on its username.

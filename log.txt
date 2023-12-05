@@ -8,3 +8,5 @@
 -- Login Attempt Succeeded at DateTime: 2023-12-04T04:45:11.240048400+03:00[Europe/Istanbul] --
 -- Login Attempt Succeeded at DateTime: 2023-12-05T03:21:59.076779300+03:00[Europe/Istanbul] --
 -- Login Attempt Succeeded at DateTime: 2023-12-05T03:50:55.979236500+03:00[Europe/Istanbul] --
+-- Login Attempt Failed at DateTime: 2023-12-05T04:18:09.678397200+03:00[Europe/Istanbul] --
+-- Login Attempt Succeeded at DateTime: 2023-12-05T04:18:13.172844800+03:00[Europe/Istanbul] --

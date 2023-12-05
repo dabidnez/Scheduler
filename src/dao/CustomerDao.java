@@ -7,6 +7,9 @@ import model.FirstLevelDivision;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
+/**
+ * Customer object related queries.
+ */
 public interface CustomerDao {
     /**
      * Return a list of all customers.

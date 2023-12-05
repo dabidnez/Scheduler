@@ -3,6 +3,9 @@ package dao;
 import javafx.collections.ObservableList;
 import model.Country;
 
+/**
+ * Country object related queries.
+ */
 public interface CountryDao {
     /**
      * Return a country object given its id.
